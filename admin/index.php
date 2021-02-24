@@ -1,3 +1,25 @@
+<?php
+require '.././include/db.php';
+if (isset($_POST['login'])) {
+    $email = $_POST['email'];
+    $password = $_POST['pass'];
+    $res = mysqli_query($conn, "Select * from users where email_id = '$email' and password = '$password' and utype='admin' ");
+    if (mysqli_num_rows($res) > 0) {
+        session_start();
+        $name = "";
+        while ($row = mysqli_fetch_array($res)) {
+            $name = $row['name'];
+        }
+        if ($name != "")    $_SESSION['name'] = $name;
+        header("location:./admin.php");
+    } else {
+        echo "<script>alert('Password Does not Match');
+              window.location='../admin/'
+              </script>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,18 +46,18 @@
 
                 <h3>Login</h3>
                 <hr />
-                <form method="POST">
+                <form method="post">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" id="email" placeholder="Email">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="pass" id="pass" placeholder="Password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" name="login" class="btn btn-primary">Login</button>
                     <hr />
-                    <button type="button" class="btn btn-link">Signup</button>
+                    <!-- <button type="button" class="btn btn-link">Signup</button> -->
                     <button type="button" class="btn btn-link">Reset Password</button>
 
                 </form>
@@ -51,10 +73,3 @@
 </body>
 
 </html>
-
-
-<?php 
-
-
-
-?>
