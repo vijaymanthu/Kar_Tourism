@@ -95,7 +95,6 @@
                      <div class="form-group">
                          <button class="btn btn-success offset-4" id="save" name="save">Register</button>
                          <a href="" class="h6 offset-1 text-primary" data-toggle="modal" data-target="#myModal" data-dismiss="modal">Back To Login</a>
-
                      </div>
                  </form>
 
